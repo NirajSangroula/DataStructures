@@ -86,17 +86,20 @@ public class Calculator {
 	}
 
 	private boolean isLesserOrEqualToPrecedence(char a, char b) {
-		String smaller = "+-";
-		String bigger = "*/%";
-		if(a == b)
+		if(getPriority(a) - getPriority(b) >= 0)
 			return true;
-		for (int i = 0; i < smaller.length(); i++) {
-			for (int j = 0; j < bigger.length(); j++) {
-				if (a == smaller.charAt(i) && b == bigger.charAt(j))
-					return true;
-			}
+		else
+			return false;
+		
+	}
+
+	private int getPriority(char a) {
+		switch (a) {
+		case '+' : return 10;
+		case '-' : return 5;
+		case '*':case '/': case '%' : return 20;
+		default: return 0;
 		}
-		return false;
 	}
 
 	public String toString() {
